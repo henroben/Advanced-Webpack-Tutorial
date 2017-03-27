@@ -1,11 +1,27 @@
 var webpack = require('webpack');
 var path = require('path');
 
+const VENDOR_LIBS = [
+    'faker',
+    'lodash',
+    'react',
+    'react-dom',
+    'react-input-range',
+    'react-redux',
+    'react-router',
+    'redux',
+    'redux-form',
+    'redux-thunk'
+]; // to create a new separate bundle to split off vendor libraries named vendor.js
+
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    bundle: './src/index.js',
+    vendor: VENDOR_LIBS
+  }, // replace string with object - so have multiple entry points
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].js' // replaces [name] with key from entry section
   },
   module: {
     rules: [
@@ -19,5 +35,10 @@ module.exports = {
           test: /\.css$/
       }
     ]
-  }
+  },
+  plugins: [
+      new webpack.optimize.CommonsChunkPlugin({
+          name: 'vendor'
+      }) // checks double including between bundle & vendor, any duplicates are only added to vendor.js
+  ]
 };
