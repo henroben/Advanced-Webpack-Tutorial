@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const VENDOR_LIBS = [
     'faker',
@@ -39,6 +40,9 @@ module.exports = {
   plugins: [
       new webpack.optimize.CommonsChunkPlugin({
           name: 'vendor'
-      }) // checks double including between bundle & vendor, any duplicates are only added to vendor.js
+      }), // checks double including between bundle & vendor, any duplicates are only added to vendor.js
+      new HtmlWebpackPlugin({
+          template: 'src/index.html'
+      })
   ]
 };
