@@ -22,7 +22,7 @@ module.exports = {
   }, // replace string with object - so have multiple entry points
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js' // replaces [name] with key from entry section
+    filename: '[name].[chunkhash].js' // replaces [name] with key from entry section
   },
   module: {
     rules: [
@@ -39,7 +39,7 @@ module.exports = {
   },
   plugins: [
       new webpack.optimize.CommonsChunkPlugin({
-          name: 'vendor'
+          names: ['vendor', 'manifest']
       }), // checks double including between bundle & vendor, any duplicates are only added to vendor.js
       new HtmlWebpackPlugin({
           template: 'src/index.html'
