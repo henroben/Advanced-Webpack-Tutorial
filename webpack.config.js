@@ -43,6 +43,9 @@ module.exports = {
       }), // checks double including between bundle & vendor, any duplicates are only added to vendor.js
       new HtmlWebpackPlugin({
           template: 'src/index.html'
+      }),
+      new webpack.DefinePlugin({
+          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       })
   ]
 };
